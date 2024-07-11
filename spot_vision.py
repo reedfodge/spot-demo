@@ -59,11 +59,11 @@ model_id = "anthropic.claude-3-haiku-20240307-v1:0"
 
 
 # Defining image output names
-front_l = 'frontright_fisheye_image.jpg'
-front_r = 'frontleft_fisheye_image.jpg'
-back =   'back_fisheye_image.jpg'
-left = 'left_fisheye_image.jpg'
-right = 'right_fisheye_image.jpg'
+front_l = 'static/frontright_fisheye_image.jpg'
+front_r = 'static/frontleft_fisheye_image.jpg'
+back =   'static/back_fisheye_image.jpg'
+left = 'static/left_fisheye_image.jpg'
+right = 'static/right_fisheye_image.jpg'
 
 
 # Get image data from image
