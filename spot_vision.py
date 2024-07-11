@@ -30,7 +30,7 @@ from amazon_transcribe.handlers import TranscriptResultStreamHandler
 from amazon_transcribe.model import TranscriptEvent
 import asyncio
 from flask import Flask, render_template_string, request
-
+import jsonify
 
 # Defining Spot camera rotation angles
 ROTATION_ANGLE = {
@@ -85,7 +85,7 @@ def synthesize_speech(text, output_filename, voice_id, language_code):
         OutputFormat='mp3',
         VoiceId=voice_id,
         LanguageCode=language_code,
-        Engine='generative'
+        Engine='neural'
     )
     
     # Initialize pygame mixer
@@ -170,7 +170,7 @@ def get_description():
                 },
                 {
                     "type": "text",
-                    "text": "You are a Boston Dynamics SPOT Robot. You have five fisheye cameras positioned at your front left, front right, left, right, and back sides. You are given each of these images. From these images, describe what you see. Point out any specific features or people that you see. List as many details about the space as possible. Do not describe what each individual camera sees, but instead imagine the images were composited together into a 360 degree view and base what you see on that. Do not mention anything about cameras or compositing, simply state what you see. Start your reply with 'I see'. You are programmed with humor and sarcasm. Make sure that your response is funny and contains jokes about what you see. Do not be mean or insult anyone or anything."
+                    "text": "You are a Boston Dynamics SPOT Robot. You have five fisheye cameras positioned at your front left, front right, left, right, and back sides. You are given each of these images. From these images, describe what you see. Point out any specific features or people that you see. List as many details about the space as possible. Do not describe what each individual camera sees, but instead imagine the images were composited together into a 360 degree view and base what you see on that. Do not mention anything about cameras or compositing, simply state what you see. Start your reply with 'I see'. You are programmed with humor. Make sure that your response is funny and contains light-hearted jokes about what you see. Do not be mean or insult anyone or anything. Instead, be positive, upbeat, and kind with your humour."
                 }
             ],
         }
@@ -327,7 +327,9 @@ class MyEventHandler(TranscriptResultStreamHandler):
                 print(transcript)
                 # Check if the specific phrase is in the transcript
                 if "looking at?" in transcript:
-                    main()
+                    # main()
+                    # webbrowser.open('127.0.0.1:5000/spot', new=2)
+                    print("TEST OUTPUT")
 
 
 # Stream microphone input
@@ -457,11 +459,13 @@ def index():
 def spot():
     # Function to be triggered by the button press
     print("Button was pressed!")
-    capture_images()
+    # capture_images()
     ai_response = get_description()
+    ai_response = ai_response.replace("'", "").replace('"', "").replace('\n', ' ').replace('\r', ' ')
+    # ai_response = '''*beep boop* I see a rather dreary and drab environment. The floor appears to be made of some kind of industrial-grade linoleum that looks like it's seen better days. The walls are a depressing shade of gray, likely chosen to match the soul-crushing monotony of whatever activities take place here. Ah, and what's this? A mysterious cardboard box, likely containing the dreams and aspirations of some poor soul who's been relegated to this dismal space. I bet it's filled with nothing but broken dreams and the faint scent of despair. And let's not forget the piece de resistance - a strange black-and-white target on the wall. Is it for target practice? A subtle reminder that this place is a soul-crushing void where dreams come to die? The possibilities are endless, and all of them equally bleak. Overall, I'd give this place a solid 2 out of 10 on the places I'd want to spend my time scale. But hey, at least it's not a windowless van, right? *beep boop* Initiating sarcasm subroutine... complete.'''
 
     # HTML template for the trigger page with a button to go back to the main page
-    html_template = '''
+    html_template = f'''
     <!doctype html>
     <html lang="en">
       <head>
@@ -469,40 +473,40 @@ def spot():
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>What Spot Sees</title>
         <style>
-          body {
+          body {{
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-          }
-          .container {
+          }}
+          .container {{
             text-align: center;
             margin-top: 50px;
             max-width: 90%;
-          }
-          .image-grid {
+          }}
+          .image-grid {{
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             margin: 20px 0;
-          }
-          .image-grid img, .centered-row img {
+          }}
+          .image-grid img, .centered-row img {{
             width: 100%;
             height: auto;
             max-width: 100%;
             border: 1px solid #ddd;
             border-radius: 4px;
             padding: 5px;
-          }
-          .centered-row {
+          }}
+          .centered-row {{
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             justify-content: center;
-          }
-          button {
+          }}
+          button {{
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -514,35 +518,35 @@ def spot():
             margin: 20px 0;
             cursor: pointer;
             border-radius: 4px;
-          }
+          }}
         </style>
         <script>
-          document.addEventListener("DOMContentLoaded", function() {
+          document.addEventListener("DOMContentLoaded", function() {{
             console.log("Page loaded. Sending AJAX request.");
-            fetch('/synthesize_speech', {
+            fetch('/synthesize_speech', {{
               method: 'POST',
-              headers: {
+              headers: {{
                 'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ ai_response: ''' + '"' + ai_response + '"' + ''' })
-            }).then(response => response.json()).then(data => {
+              }},
+              body: JSON.stringify({{ ai_response: "{ai_response}" }})
+            }}).then(response => response.json()).then(data => {{
               console.log(data.message);
-            }).catch(error => console.error("Error:", error));
-          });
+            }}).catch(error => console.error("Error:", error));
+          }});
         </script>
       </head>
       <body>
         <div class="container">
           <h1>What Spot Sees</h1>
-          <p>''' + ai_response + '''</p>
+          <p>{ai_response}</p>
           <div class="image-grid">
-            <img src="{{url_for('static', filename='frontright_fisheye_image.jpg')}}" alt="Front Right Image">
-            <img src="{{url_for('static', filename='frontleft_fisheye_image.jpg')}}" alt="Front Left Image">
+            <img src="{{{{url_for('static', filename='frontright_fisheye_image.jpg')}}}}" alt="Front Right Image">
+            <img src="{{{{url_for('static', filename='frontleft_fisheye_image.jpg')}}}}" alt="Front Left Image">
           </div>
           <div class="centered-row">
-            <img src="{{url_for('static', filename='left_fisheye_image.jpg')}}" alt="Left Image">
-            <img src="{{url_for('static', filename='right_fisheye_image.jpg')}}" alt="Right Image">
-            <img src="{{url_for('static', filename='back_fisheye_image.jpg')}}" alt="Back Image">
+            <img src="{{{{url_for('static', filename='left_fisheye_image.jpg')}}}}" alt="Left Image">
+            <img src="{{{{url_for('static', filename='back_fisheye_image.jpg')}}}}" alt="Back Image">
+            <img src="{{{{url_for('static', filename='right_fisheye_image.jpg')}}}}" alt="Right Image">
           </div>
           <form action="/" method="get">
             <button type="submit">Go back to main page</button>
@@ -555,17 +559,25 @@ def spot():
 
 @app.route('/synthesize_speech', methods=['POST'])
 def synthesize_speech_endpoint():
-    data = request.get_json()
-    if not data or 'ai_response' not in data:
-        return jsonify({'message': 'Invalid data'}), 400
-    ai_response = data['ai_response']
-    synthesize_speech(ai_response, output_filename='speech.mp3', voice_id='Matthew', language_code='en-US')
-    return jsonify({'message': 'Speech synthesis complete'}), 200
+    try:
+        data = request.get_json()
+        if not data or 'ai_response' not in data:
+            print("Invalid data received")
+            return jsonify({'message': 'Invalid data'}), 400
+        ai_response = data['ai_response']
+        print(f"Synthesizing speech for response: {ai_response}")
+        synthesize_speech(ai_response, output_filename='speech.mp3', voice_id='Matthew', language_code='en-US')
+        return jsonify({'message': 'Speech synthesis complete'}), 200
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return jsonify({'message': 'An error occurred', 'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
 
 # loop = asyncio.get_event_loop()
 # loop.run_until_complete(basic_transcribe())
 # loop.close()
+
 
