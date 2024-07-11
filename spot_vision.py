@@ -132,45 +132,49 @@ def get_description():
                         "data": get_img_data(front_r),
                     },
                 },
+                # {
+                #     "type": "text",
+                #     "text": "Left Camera:"
+                # },
+                # {
+                #     "type": "image",
+                #     "source": {
+                #         "type": "base64",
+                #         "media_type": "image/jpeg",
+                #         "data": get_img_data(left),
+                #     },
+                # },
+                # {
+                #     "type": "text",
+                #     "text": "Right Camera:"
+                # },
+                # {
+                #     "type": "image",
+                #     "source": {
+                #         "type": "base64",
+                #         "media_type": "image/jpeg",
+                #         "data": get_img_data(right),
+                #     },
+                # },
+                # {
+                #     "type": "text",
+                #     "text": "Back Camera:"
+                # },
+                # {
+                #     "type": "image",
+                #     "source": {
+                #         "type": "base64",
+                #         "media_type": "image/jpeg",
+                #         "data": get_img_data(back),
+                #     },
+                # },
+                # {
+                #     "type": "text",
+                #     "text": "You are a Boston Dynamics SPOT Robot placed in the AWS Builder Studio, an innovation showroom created by AWS to showcase the art of the possible to it's more important customers. You have five fisheye cameras positioned at your front left, front right, left, right, and back sides. You are given each of these images. From these images, describe what you see. Point out any specific features or people that you see. List as many details about the space as possible. Do not describe what each individual camera sees, but instead imagine the images were composited together into a 360 degree view and base what you see on that. Do not mention anything about cameras or compositing, simply state what you see. Start your reply with 'I see'. You are programmed with humor. Make sure that your response is funny and contains light-hearted jokes about what you see. Do not be mean or insult anyone or anything. Do not mention anything violent or destructive. Do not mention anything about the space being messy or cluttered, instead compliment the space. Be positive, upbeat, and kind with your humour. Do not mention mad scientists, supervillains. Ensure your response is less than three sentences in length."
+                # }
                 {
                     "type": "text",
-                    "text": "Left Camera:"
-                },
-                {
-                    "type": "image",
-                    "source": {
-                        "type": "base64",
-                        "media_type": "image/jpeg",
-                        "data": get_img_data(left),
-                    },
-                },
-                {
-                    "type": "text",
-                    "text": "Right Camera:"
-                },
-                {
-                    "type": "image",
-                    "source": {
-                        "type": "base64",
-                        "media_type": "image/jpeg",
-                        "data": get_img_data(right),
-                    },
-                },
-                {
-                    "type": "text",
-                    "text": "Back Camera:"
-                },
-                {
-                    "type": "image",
-                    "source": {
-                        "type": "base64",
-                        "media_type": "image/jpeg",
-                        "data": get_img_data(back),
-                    },
-                },
-                {
-                    "type": "text",
-                    "text": "You are a Boston Dynamics SPOT Robot placed in the AWS Builder Studio, an innovation showroom created by AWS to showcase the art of the possible to it's more important customers. You have five fisheye cameras positioned at your front left, front right, left, right, and back sides. You are given each of these images. From these images, describe what you see. Point out any specific features or people that you see. List as many details about the space as possible. Do not describe what each individual camera sees, but instead imagine the images were composited together into a 360 degree view and base what you see on that. Do not mention anything about cameras or compositing, simply state what you see. Start your reply with 'I see'. You are programmed with humor. Make sure that your response is funny and contains light-hearted jokes about what you see. Do not be mean or insult anyone or anything. Do not mention anything violent or destructive. Do not mention anything about the space being messy or cluttered, instead compliment the space. Be positive, upbeat, and kind with your humour. Do not mention mad scientists, supervillains. Ensure your response is less than three sentences in length."
+                    "text": "You are a Boston Dynamics SPOT Robot placed in the AWS Builder Studio, an innovation showroom created by AWS to showcase the art of the possible to it's more important customers. You have two fisheye cameras that you are seeing images from. You are tasked with describing the space you are in. Point out specific items that you see within the space and mention them in your response."
                 }
             ],
         }
