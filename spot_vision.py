@@ -174,7 +174,7 @@ def get_description():
                 # }
                 {
                     "type": "text",
-                    "text": "You are a Boston Dynamics SPOT Robot placed in the AWS Builder Studio, an innovation showroom created by AWS to showcase the art of the possible to it's more important customers. You have two fisheye cameras that you are seeing images from. You are tasked with describing the space you are in. Point out specific items that you see within the space and mention them in your response."
+                    "text": "Tell me a sentence about plants"
                 }
             ],
         }
