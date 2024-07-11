@@ -459,7 +459,7 @@ def index():
 def spot():
     # Function to be triggered by the button press
     print("Button was pressed!")
-    # capture_images()
+    capture_images()
     ai_response = get_description()
     ai_response = ai_response.replace("'", "").replace('"', "").replace('\n', ' ').replace('\r', ' ')
     # ai_response = '''*beep boop* I see a rather dreary and drab environment. The floor appears to be made of some kind of industrial-grade linoleum that looks like it's seen better days. The walls are a depressing shade of gray, likely chosen to match the soul-crushing monotony of whatever activities take place here. Ah, and what's this? A mysterious cardboard box, likely containing the dreams and aspirations of some poor soul who's been relegated to this dismal space. I bet it's filled with nothing but broken dreams and the faint scent of despair. And let's not forget the piece de resistance - a strange black-and-white target on the wall. Is it for target practice? A subtle reminder that this place is a soul-crushing void where dreams come to die? The possibilities are endless, and all of them equally bleak. Overall, I'd give this place a solid 2 out of 10 on the places I'd want to spend my time scale. But hey, at least it's not a windowless van, right? *beep boop* Initiating sarcasm subroutine... complete.'''
